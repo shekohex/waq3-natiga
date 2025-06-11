@@ -367,7 +367,7 @@ export function ResultsTable({ result }: { result: any }) {
                 <span
                   class={`font-bold ${Info4 === "ن" ? "text-green-600" : "text-red-600"}`}
                 >
-                  {Info4 === "ن" ? "ناجح" : "راسب"}
+                  {Info4}
                 </span>
               </td>
             </tr>
