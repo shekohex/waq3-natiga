@@ -8,9 +8,6 @@ import {
   UnifiedSearchForm,
 } from "./components";
 
-// Disable SSL verification globally for this application
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
 const app = new Hono();
 app.get("*", renderer({ pageTitle: "نظام البحث عن النتائج" }));
 
@@ -148,12 +145,13 @@ app
 
         // Make request to ASP.NET backend with timeout
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 7_000); // 7 second timeout
+        const timeoutId = setTimeout(() => controller.abort(), 10_000); // 10 second timeout
 
         try {
           const response = await fetch(
-            "https://natiga.azhar.eg/WebService1.asmx/GetResult",
+            "http://natiga.azhar.eg/WebService1.asmx/GetResult",
             {
+              verbose: true,
               method: "POST",
               headers: {
                 Host: "natiga.azhar.eg",
@@ -176,7 +174,6 @@ app
               signal: controller.signal,
             }
           );
-
           clearTimeout(timeoutId);
 
           if (!response.ok) {
@@ -281,42 +278,4 @@ app
     );
   });
 
-// Start the server
-const port = parseInt(process.env.PORT || "3000");
-const server = Bun.serve({
-  port,
-  fetch: app.fetch,
-});
-
-console.log(`🚀 Server running at http://localhost:${port}`);
-
-// Graceful shutdown handlers
-const gracefulShutdown = async (signal: string) => {
-  console.log(`\n📡 Received ${signal}. Starting graceful shutdown...`);
-
-  try {
-    // Stop accepting new connections
-    server.stop();
-    console.log("✅ Server stopped accepting new connections");
-
-    // Give time for ongoing requests to complete
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    console.log("✅ Graceful shutdown completed");
-    process.exit(0);
-  } catch (error) {
-    console.error("❌ Error during graceful shutdown:", error);
-    process.exit(1);
-  }
-};
-
-// Handle different termination signals
-process.on("SIGINT", () => gracefulShutdown("SIGINT")); // CTRL+C
-process.on("SIGTERM", () => gracefulShutdown("SIGTERM")); // Termination signal
-process.on("SIGQUIT", () => gracefulShutdown("SIGQUIT")); // Quit signal
-
-// Handle uncaught exceptions and unhandled rejections
-process.on("uncaughtException", (error) => {
-  console.error("❌ Uncaught Exception:", error);
-  gracefulShutdown("unhandledRejection");
-});
+export default app;
