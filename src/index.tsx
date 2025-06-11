@@ -148,7 +148,7 @@ app
 
         // Make request to ASP.NET backend with timeout
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 20000); // 20 second timeout
+        const timeoutId = setTimeout(() => controller.abort(), 7_000); // 7 second timeout
 
         try {
           const response = await fetch(
