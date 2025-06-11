@@ -160,7 +160,7 @@ app
                 Origin: "https://natiga.azhar.eg",
                 Referer: "https://natiga.azhar.eg/",
                 "User-Agent":
-                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:139.0) Gecko/20100101 Firefox/139.0",
                 "Cache-Control": "no-cache",
                 Pragma: "no-cache",
                 TE: "Trailers",
@@ -168,6 +168,9 @@ app
                 "Accept-Language": "en-US,en;q=0.5",
                 "Content-Type": "application/json; charset=utf-8",
                 "X-Requested-With": "XMLHttpRequest",
+                "SEC-Fetch-Dest": "empty",
+                "SEC-Fetch-Mode": "cors",
+                "SEC-Fetch-Site": "same-origin",
               },
               body: JSON.stringify(requestBody),
               signal: controller.signal,
@@ -229,6 +232,7 @@ app
             error.message.includes("502") ||
             error.message.includes("503") ||
             error.message.includes("504") ||
+            error.message.includes("524") || // Cloudflare timeout
             error.message.includes("timeout") ||
             error.message.includes("ECONNRESET") ||
             error.message.includes("ETIMEDOUT") ||
