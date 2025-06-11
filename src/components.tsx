@@ -184,8 +184,8 @@ export function GradeSelect() {
         required
       >
         <option value="0">اختر المرحلة</option>
-        <option value="1">الابتدائي</option>
-        <option value="2">الإعدادي</option>
+        <option value="1">الابتدائية</option>
+        <option value="2">الإعدادية</option>
       </select>
     </div>
   );
