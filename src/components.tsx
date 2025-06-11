@@ -351,26 +351,30 @@ export function ResultsTable({ result }: { result: any }) {
                 {Info2}
               </td>
             </tr>
-            <tr class="bg-gray-50">
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-gray-700 text-right">
-                المجموع
-              </td>
-              <td class="border border-gray-300 px-4 py-3 text-right">
-                <span class="font-bold text-lg text-green-600">{Info3}</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-gray-700 text-right">
-                الحالة
-              </td>
-              <td class="border border-gray-300 px-4 py-3 text-right">
-                <span
-                  class={`font-bold ${Info4 === "ن" ? "text-green-600" : "text-red-600"}`}
-                >
-                  {Info4}
-                </span>
-              </td>
-            </tr>
+            {Info3 && (
+              <tr class="bg-gray-50">
+                <td class="border border-gray-300 px-4 py-3 font-semibold text-gray-700 text-right">
+                  المجموع
+                </td>
+                <td class="border border-gray-300 px-4 py-3 text-right">
+                  <span class="font-bold text-lg text-green-600">{Info3}</span>
+                </td>
+              </tr>
+            )}
+            {Info4 && (
+              <tr>
+                <td class="border border-gray-300 px-4 py-3 font-semibold text-gray-700 text-right">
+                  الحالة
+                </td>
+                <td class="border border-gray-300 px-4 py-3 text-right">
+                  <span
+                    class={`font-bold ${Info4 === "ن" ? "text-green-600" : "text-red-600"}`}
+                  >
+                    {Info4}
+                  </span>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
